@@ -6,7 +6,9 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SnapHelper;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.Button;
@@ -31,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mediaPlayer =MediaPlayer.create(this, R.raw.son);
-        mediaPlayer2=MediaPlayer.create(this, R.raw.musique);
+        mediaPlayer = MediaPlayer.create(this, R.raw.son);
+        mediaPlayer2 = MediaPlayer.create(this, R.raw.musique);
 
 
         recyclerView = findViewById(R.id.rv1);
@@ -51,33 +53,13 @@ public class MainActivity extends AppCompatActivity {
         smileyAdapter = new SmileyAdapter(happyList);
         recyclerView.setAdapter(smileyAdapter);
 
-        //Swipe
+        //Snaphelper
 
-         final ItemTouchHelper.Callback itemTouchHelperCallBack = new ItemTouchHelper.Callback() {
-             @Override
-             public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-                int swipe = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
-                 return makeMovementFlags(0,swipe) ;
-             }
-
-             @Override
-             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
-                 return false;
-             }
-
-             @Override
-             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-
-                 int position = viewHolder.getAdapterPosition();
-                 smileyAdapter.happyList.remove(position);
-                 smileyAdapter.notifyItemRemoved(position);
-             }
-
-
-         };
-         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchHelperCallBack);
-         itemTouchHelper.attachToRecyclerView(recyclerView);
+        SnapHelper snapHelper = new LinearSnapHelper();
+        snapHelper.attachToRecyclerView(recyclerView);
     }
+
+
 
 // Set history btn and launch activity
 
