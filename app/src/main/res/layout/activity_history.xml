@@ -9,65 +9,139 @@
     tools:context=".History">
 
 
-    <TextView
-        android:id="@+id/tv7"
+    <LinearLayout
+        android:id="@+id/week"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="bonjour"
+        android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/colorAccent"
-        />
-    <TextView
-        android:id="@+id/tv6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Il y a 6 jours"
-        android:layout_weight="1"
-        android:background="@color/colorPrimary"
-        />
-    <TextView
-        android:id="@+id/tv5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Il y a 5 jours"
-        android:layout_weight="1"
-        android:background="@color/banana_yellow"
-        />
-    <TextView
-        android:id="@+id/tv4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Il y a 4 jours"
-        android:layout_weight="1"
-        android:background="@color/faded_red"
-        />
-    <TextView
-        android:id="@+id/tv3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Il y a 3 jours"
-        android:layout_weight="1"
-        android:background="@color/light_sage"
-        />
-    <TextView
-        android:id="@+id/tv2"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="Il y a 2 jours"
-        android:layout_weight="1"
-        android:background="@color/warm_grey"
-        />
-    <TextView
-        android:id="@+id/tv1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Il y a 1 jour"
-        android:layout_weight="1"
-        android:background="@color/cornflower_blue_65"
-        />
+        android:weightSum="5">
+        <TextView
+            android:id="@+id/tv7"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="A week ago"
+            android:layout_weight="3"
+            android:gravity="start"
+            android:background="@color/colorAccent"
+            tools:ignore="NestedWeights"
+            />
+
+    </LinearLayout>
 
 
+    <LinearLayout
+        android:id="@+id/six_days"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:weightSum="5">
+        <TextView
+            android:id="@+id/tv6"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Il y a 6 jours"
+            android:layout_weight="1"
+            android:gravity="start"
+            android:background="@color/colorPrimary"
+            tools:ignore="NestedWeights"
+            android:drawableEnd="@drawable/ic_comment_black_48px"
+            />
+    </LinearLayout>
 
+
+   <LinearLayout
+       android:id="@+id/five_days"
+       android:layout_width="match_parent"
+       android:layout_height="0dp"
+       android:layout_weight="1"
+       android:weightSum="5">
+       <TextView
+           android:id="@+id/tv5"
+           android:layout_width="0dp"
+           android:layout_height="match_parent"
+           android:text="Il y a 5 jours"
+           android:layout_weight="4"
+           android:background="@color/banana_yellow"
+           tools:ignore="NestedWeights"
+           android:drawableEnd="@drawable/ic_comment_black_48px"/>
+   </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/four_days"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:weightSum="5">
+        <TextView
+            android:id="@+id/tv4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Il y a 4 jours"
+            android:gravity="start"
+            android:layout_weight="3"
+            android:background="@color/faded_red"
+            tools:ignore="NestedWeights"
+            android:drawableEnd="@drawable/ic_comment_black_48px"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/three_days"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:weightSum="5">
+        <TextView
+            android:id="@+id/tv3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Il y a 3 jours"
+            android:layout_weight="5"
+            android:gravity="start"
+            android:background="@color/light_sage"
+            tools:ignore="NestedWeights"
+            android:drawableEnd="@drawable/ic_comment_black_48px"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/two_days"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:weightSum="5">
+        <TextView
+            android:id="@+id/tv2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Il y a 2 jours"
+            android:layout_weight="1"
+            android:gravity="start"
+            android:background="@color/warm_grey"
+            tools:ignore="NestedWeights"
+            android:drawableEnd="@drawable/ic_comment_black_48px"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/one_day"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:weightSum="5">
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Il y a 1 jour"
+            android:gravity="start"
+            android:layout_weight="4"
+            android:background="@color/cornflower_blue_65"
+            tools:ignore="NestedWeights"
+            android:drawableEnd="@drawable/ic_comment_black_48px"
+            />
+    </LinearLayout>
 
 
 </LinearLayout>

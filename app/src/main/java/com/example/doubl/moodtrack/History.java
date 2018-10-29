@@ -1,5 +1,6 @@
 package com.example.doubl.moodtrack;
 
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,17 +21,12 @@ public class History extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
-        TextView tv = findViewById(R.id.tv1);
-        ViewGroup.LayoutParams params= tv.getLayoutParams();
-        params.width=800;
-        tv.setLayoutParams(params);
-        tv.setBackground(getResources().getDrawable(R.color.banana_yellow));
-        tv.setText("yoyoyoyoyoyo");
-        tv.setTextSize(20);
 
+        TextView textView7 = findViewById(R.id.tv7);
 
 
     }
+
 
 
 
