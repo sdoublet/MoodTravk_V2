@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="7"
-    tools:context=".History">
+    tools:context=".view.History">
 
 
     <LinearLayout
@@ -22,7 +22,7 @@
             android:text="A week ago"
             android:layout_weight="3"
             android:gravity="start"
-            android:background="@color/colorAccent"
+            android:background="@color/banana_yellow"
             tools:ignore="NestedWeights"
             />
 
@@ -42,7 +42,7 @@
             android:text="Il y a 6 jours"
             android:layout_weight="1"
             android:gravity="start"
-            android:background="@color/colorPrimary"
+            android:background="@color/warm_grey"
             tools:ignore="NestedWeights"
             android:drawableEnd="@drawable/ic_comment_black_48px"
             />
@@ -120,7 +120,9 @@
             android:gravity="start"
             android:background="@color/warm_grey"
             tools:ignore="NestedWeights"
-            android:drawableEnd="@drawable/ic_comment_black_48px"/>
+            android:drawableEnd="@drawable/ic_comment_black_48px"
+            />
+
     </LinearLayout>
 
 

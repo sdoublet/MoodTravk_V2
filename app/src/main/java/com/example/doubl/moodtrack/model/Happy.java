@@ -1,4 +1,4 @@
-package com.example.doubl.moodtrack;
+package com.example.doubl.moodtrack.model;
 
 import android.graphics.drawable.Drawable;
 
@@ -7,10 +7,14 @@ public class Happy {
     private Drawable smiley;
     private Drawable background1;
 
+
     public Happy(Drawable smiley, Drawable background1) {
         this.smiley = smiley;
         this.background1 = background1;
+
     }
+
+
 
     public Drawable getSmiley() {
         return smiley;

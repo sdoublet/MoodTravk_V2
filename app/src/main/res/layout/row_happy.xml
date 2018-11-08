@@ -22,9 +22,9 @@
             android:id="@+id/tv_smiley"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/smileysuperhappy"
+            android:background="@drawable/smiley_super_happy"
             android:layout_centerInParent="true"
-            android:onClick="mood_choice"/>
+            android:onClick="moodChoice"/>
 
 
 
