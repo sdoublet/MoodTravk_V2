@@ -24,6 +24,7 @@
             android:gravity="start"
             android:background="@color/banana_yellow"
             tools:ignore="NestedWeights"
+
             />
 
     </LinearLayout>
@@ -63,7 +64,8 @@
            android:layout_weight="4"
            android:background="@color/banana_yellow"
            tools:ignore="NestedWeights"
-           android:drawableEnd="@drawable/ic_comment_black_48px"/>
+           android:drawableEnd="@drawable/ic_comment_black_48px"
+           />
    </LinearLayout>
 
 

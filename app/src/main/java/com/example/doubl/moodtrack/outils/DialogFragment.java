@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.doubl.moodtrack.R;
+import com.example.doubl.moodtrack.model.MoodEnum;
 
 
 public class DialogFragment extends android.support.v4.app.DialogFragment {
@@ -39,7 +40,8 @@ public class DialogFragment extends android.support.v4.app.DialogFragment {
                 String text = editText.getText().toString();
                 Log.i("DialogClick", text);
                 databaseManager = new DatabaseManager(getContext());
-                databaseManager.insertComment(text);
+                databaseManager.insertComment(text, MoodEnum.HAPPY);
+
                 Log.i("DATABASE", "insertComment invokedFragment : -> " + text);
                 dismiss();
 

@@ -64,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
         smileyAdapter = new SmileyAdapter(happyList);
         recyclerView.setAdapter(smileyAdapter);
 
-
 //SnapHelper for fix item
         SnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(recyclerView);
