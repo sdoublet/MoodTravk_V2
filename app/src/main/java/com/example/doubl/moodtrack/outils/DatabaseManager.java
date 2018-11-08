@@ -61,7 +61,7 @@ public  class DatabaseManager extends SQLiteOpenHelper {
      String strSql = "insert into Comment_Table(comment, when_) values('"
              + comment +  "," + new Date().getTime() +")";
 
-    getWritableDatabase();
+    this.getWritableDatabase();
      Log.i("DATABASE", "insertComment invokedManager");
  }
 
@@ -77,7 +77,7 @@ public  class DatabaseManager extends SQLiteOpenHelper {
 
  public List<Mood> readForAWeek(){
       List<Mood> moods = new ArrayList<>();
-      String strSql = "select * from Comment_Table order by comment desc limit 8";
+      String strSql = "select * from Comment_Table order by date limit 8";
      Cursor cursor = this.getReadableDatabase().rawQuery(strSql, null);
      cursor.moveToFirst();
      while (!cursor.isAfterLast()){
@@ -89,5 +89,6 @@ public  class DatabaseManager extends SQLiteOpenHelper {
      cursor.close();
      return moods;
   }
+
 
 }

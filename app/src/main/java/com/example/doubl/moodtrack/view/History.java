@@ -3,6 +3,7 @@ package com.example.doubl.moodtrack.view;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.doubl.moodtrack.R;
 
@@ -39,9 +40,9 @@ public class History extends AppCompatActivity {
         sevenDayAgo=findViewById(R.id.tv7);
 
 
+        // TODO: 08/11/2018   if(database comment !=null){set visibility}
+        // TODO: 08/11/2018  Toast.makeText(comment database)
 
-        oneDaAgo.setText("yoyoyoy");
-        //oneDaAgo.set
         }
 
 
