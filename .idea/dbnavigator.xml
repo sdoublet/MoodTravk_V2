@@ -29,10 +29,13 @@
     <connection id="d71fea21-663f-4f6a-94e1-968e2e76b20d">
       <console name="db 1" type="STANDARD" />
       <console name="db 2" type="STANDARD"><![CDATA[Database_name]]></console>
+      <console name="db 3" type="STANDARD" />
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
-    <connection id="d71fea21-663f-4f6a-94e1-968e2e76b20d" />
+    <connection id="d71fea21-663f-4f6a-94e1-968e2e76b20d">
+      <session name="Session 1" id="8c6a18d4-222c-4e7c-ae1d-e75bfd7dd3fd" />
+    </connection>
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
@@ -94,7 +97,7 @@
         </ssh-settings>
         <details>
           <charset value="UTF-8" />
-          <session-management value="true" />
+          <session-management value="false" />
           <ddl-file-binding value="true" />
           <database-logging value="false" />
           <connect-automatically value="true" />

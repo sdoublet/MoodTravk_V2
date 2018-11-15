@@ -40,7 +40,8 @@ public class DialogFragment extends android.support.v4.app.DialogFragment {
                 String text = editText.getText().toString();
                 Log.i("DialogClick", text);
                 databaseManager = new DatabaseManager(getContext());
-                databaseManager.insertComment(text, MoodEnum.HAPPY);
+                databaseManager.insertComment(text, MoodEnum.SUPPER_HAPPY);
+                databaseManager.getWritableDatabase();
 
                 Log.i("DATABASE", "insertComment invokedFragment : -> " + text);
                 dismiss();

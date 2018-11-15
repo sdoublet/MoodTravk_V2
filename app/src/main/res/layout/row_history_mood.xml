@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="94dp"
+    android:elevation="5dp"
+    android:background="@color/light_sage">
+
+    <TextView
+        android:id="@+id/row_history_mood_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:textColor="#A000"
+        android:text="text"/>
+
+    <ImageButton
+        android:id="@+id/row_history_mood_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:layout_gravity="center|end"
+        android:background="@drawable/ic_comment_black_48px"
+        android:visibility="visible"
+        android:contentDescription="comment button"/>
+
+</LinearLayout>

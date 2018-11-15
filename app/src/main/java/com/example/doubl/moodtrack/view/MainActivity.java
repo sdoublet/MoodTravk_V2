@@ -1,6 +1,9 @@
 package com.example.doubl.moodtrack.view;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,10 +14,12 @@ import android.support.v7.widget.SnapHelper;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.RotateAnimation;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.doubl.moodtrack.model.Mood;
+import com.example.doubl.moodtrack.model.MoodEnum;
 import com.example.doubl.moodtrack.outils.DatabaseManager;
 import com.example.doubl.moodtrack.outils.DialogFragment;
 import com.example.doubl.moodtrack.model.Happy;
@@ -35,7 +40,9 @@ public class MainActivity extends AppCompatActivity {
     private Mood mood;
     private TextView testView;
     private DatabaseManager databaseManager;
-
+    private TextView moodchoice;
+    SQLiteOpenHelper openHelper;
+    SQLiteDatabase db;
 
 
     @Override
@@ -46,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
         mediaPlayer = MediaPlayer.create(this, R.raw.son);
         mediaPlayer2 = MediaPlayer.create(this, R.raw.sound1);
         mediaplayer3 = MediaPlayer.create(this, R.raw.sound3);
-
 
 
         recyclerView = findViewById(R.id.rv1);
@@ -61,28 +67,43 @@ public class MainActivity extends AppCompatActivity {
         happyList.add(new Happy(getResources().getDrawable(R.drawable.smiley_sad), getResources().getDrawable(R.color.faded_red)));
 
 
-        smileyAdapter = new SmileyAdapter(happyList);
+        smileyAdapter = new SmileyAdapter(happyList, null);
         recyclerView.setAdapter(smileyAdapter);
 
 //SnapHelper for fix item
         SnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(recyclerView);
+
+
+
+
     }
+
+
+
 
     // choisir le mood et créer une animation sur le smiley
-    public void moodChoice(View view) {
-        Toast.makeText(MainActivity.this, "Votre choix a bien été pris en compte", Toast.LENGTH_LONG).show();
-        RotateAnimation rotateAnimation = new RotateAnimation(0, 3600, RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
-        rotateAnimation.setDuration(3700);
-        view.startAnimation(rotateAnimation);
-        mediaplayer3.start();
-        // TODO: 07/11/2018   change l'historique en fonction du mood choisi
-        // TODO: background history = background happylist
-        // TODO: 07/11/2018 callback
-        // TODO: 07/11/2018 mettre le mood choisi dans database
-
-        //Log.i("DATABASE", "insertMood invokedMain");
-    }
+  public void moodChoice(View view) {
+//
+      Toast.makeText(MainActivity.this, "Votre choix a bien été pris en compte", Toast.LENGTH_LONG).show();
+      RotateAnimation rotateAnimation = new RotateAnimation(0, 3600, RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+      rotateAnimation.setDuration(3700);
+      view.startAnimation(rotateAnimation);
+      mediaplayer3.start();
+      // TODO: 07/11/2018   change l'historique en fonction du mood choisi
+      // TODO: background history = background happylist
+      // TODO: 07/11/2018 callback
+      // TODO: 07/11/2018 mettre le mood choisi dans database
+//
+      //Log.i("DATABASE", "insertMood invokedMain");
+      databaseManager = new DatabaseManager(this);
+      databaseManager.insertComment("salut", MoodEnum.SAD);
+      databaseManager.getWritableDatabase();
+        Log.i("DATABASE", "insertcomment invoked main");
+       //DialogFragment dialogFragment = new DialogFragment();
+       //dialogFragment.show(getSupportFragmentManager(), "dialog");
+//
+  }
 
     // Set history btn and launch activity
     public void history(View view) {
@@ -101,17 +122,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Affichage du message enregistré dans l'historique
-    public void historyComment(View view) {
-        TextView historyComment = findViewById(R.id.tv7);
-        historyComment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // afficher un toast
+//    public void historyComment(View view) {
+//        TextView historyComment = findViewById(R.id.tv7);
+//        historyComment.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // afficher un toast
 
 
-            }
-        });
-    }
+//            }
+//        });
+//    }
 
 
     // Set sounds
