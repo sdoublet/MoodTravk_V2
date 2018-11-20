@@ -11,9 +11,11 @@ import android.util.Log;
 import com.example.doubl.moodtrack.model.Mood;
 import com.example.doubl.moodtrack.model.MoodEnum;
 
-import org.w3c.dom.Comment;
+
 
 import java.util.ArrayList;
+import java.util.Calendar;
+
 import java.util.Date;
 import java.util.List;
 
@@ -23,17 +25,17 @@ public class DatabaseManager extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATA_TABLE = "Comment_Table";
 
-    private class Columns implements BaseColumns {
-        public static final String COMMENT = "COMMENT";
-        public static final String MOOD = "MOOD";
-        public static final String DATE = "DATE";
+    private static class Columns implements BaseColumns {
+        private static final String COMMENT = "COMMENT";
+        private static final String MOOD = "MOOD";
+        private static final String DATE = "DATE";
 
     }
 
     /**
      * constructor
      *
-     * @param context
+     * @param context context
      */
     public DatabaseManager(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -42,11 +44,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
     /**
      * if db change
      *
-     * @param db
+     * @param db database
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String create = "CREATE TABLE Comment_Table("
+        String create = "CREATE TABLE "+ DATA_TABLE + "("
                 + Columns.DATE + " DATE PRIMARY KEY  ,"
                 + Columns.COMMENT + " TEXT,"
                 + Columns.MOOD + " TEXT NOT NULL "
@@ -58,52 +60,73 @@ public class DatabaseManager extends SQLiteOpenHelper {
     /**
      * if version change
      *
-     * @param db
-     * @param oldVersion
-     * @param newVersion
+     * @param db database
+     * @param oldVersion ov
+     * @param newVersion nv
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String strSql = "DROP TABLE Comment_Table";
+        String strSql = " DROP TABLE "+ DATA_TABLE;
         db.execSQL(strSql);
         this.onCreate(db);
         Log.i("DATABASE", "onUpgrade invoked");
     }
 
 
-    public void insertComment(String comment, MoodEnum moodEnum, int daysAgo) {
+    public void insertComment(String comment, MoodEnum moodEnum) {
         comment = comment.replace("'", "''");
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(Columns.COMMENT, comment);
         contentValues.put(Columns.MOOD, moodEnum.name());
         contentValues.put(Columns.DATE, new Date().getTime());
-        // contentValues.put(Columns.DATE,  Calendar.getInstance().get(Calendar.YEAR)
-        //        + Calendar.getInstance().get(Calendar.MONTH)
-        //        + Calendar.getInstance().get(Calendar.DAY_OF_WEEK));
+        //contentValues.put(Columns.DATE,  Calendar.getInstance().get(Calendar.YEAR)
+        //       + Calendar.getInstance().get(Calendar.MONTH)
+        //       + Calendar.getInstance().get(Calendar.DAY_OF_WEEK));
 
         this.getWritableDatabase().insert(DATA_TABLE, null, contentValues);
-        Log.i("DATABASE", "insertComment invokedManager");
+        Log.i("DATABASE", "insertComment invokedManager" + new Date().getTime());
+
     }
 
+    public void insertCommentTwo(String comment, String mood) {
+        comment = comment.replace("'", "''");
+        Mood mood1=new Mood();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Columns.COMMENT, comment);
+        contentValues.put(Columns.MOOD, mood1.getMood());
+        contentValues.put(Columns.DATE, new Date().getTime());
+        //contentValues.put(Columns.DATE,  Calendar.getInstance().get(Calendar.YEAR)
+        //       + Calendar.getInstance().get(Calendar.MONTH)
+        //       + Calendar.getInstance().get(Calendar.DAY_OF_WEEK));
+
+        this.getWritableDatabase().insert(DATA_TABLE, null, contentValues);
+        Log.i("DATABASE", "insertComment invokedManager" + new Date().getTime());
+
+    }
     // list de mes moods enregistrés
     public List<Mood> readForAWeek() {
         List<Mood> moods = new ArrayList<>();
-        String selectMood = "SELECT * FROM " +
-                DATA_TABLE + " " +
-                "WHERE" + Columns.DATE +
-                " BETWEEN DATE('NOW','LOCALTIME','START OF DAY','-7 DAY')" +
-                "AND DATE('NOW', 'LOCALTITME', 'START OF DAY', '-1DAY')";
+        String selectMood = "SELECT * " +
+                "FROM " + DATA_TABLE + " ORDER BY DATE DESC LIMIT 7 ";
+      //  + " " +
+      //          "WHERE " + Columns.DATE + " BETWEEN DATE('NOW', 'LOCALTIME', 'START OF DAY', '-7 DAY') " +
+      //          "AND DATE('NOW', 'LOCALTIME', 'START OF DAY', '-1 DAY')";
+       // String selectMood = "SELECT * FROM " +
+       //         DATA_TABLE+
+       //         " ORDER BY DATE DESC LIMIT   7 ";
+
         Cursor cursor = getReadableDatabase().rawQuery(selectMood, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            Mood mood = new Mood(cursor.getColumnIndex(Columns.COMMENT),
-                    cursor.getColumnIndex(Columns.MOOD),
-                    cursor.getColumnIndex(Columns.DATE));
-
+            Mood mood = new Mood(cursor.getString(cursor.getColumnIndex(Columns.COMMENT)),
+                    cursor.getString(cursor.getColumnIndex(Columns.MOOD)),
+                    cursor.getString(cursor.getColumnIndex(Columns.DATE)));
+//if days = today cursor move afterlast
             moods.add(mood);
             cursor.moveToNext();
         }
+        cursor.close();
         return moods;
     }
     public Mood getCurrentMood(){
@@ -118,10 +141,10 @@ public class DatabaseManager extends SQLiteOpenHelper {
             return null;
         cursor.moveToFirst();
         Mood currentMood = new Mood();
-        currentMood.setMood(cursor.getColumnIndex(Columns.MOOD));
-        currentMood.setComment(cursor.getColumnIndex(Columns.COMMENT));
-        currentMood.setColor(cursor.getColumnIndex());
-        currentMood.setWhen(cursor.getColumnIndex(Columns.DATE));
+        currentMood.setMood(cursor.getString(cursor.getColumnIndex(Columns.MOOD)));
+        currentMood.setComment(cursor.getString(cursor.getColumnIndex(Columns.COMMENT)));
+
+        currentMood.setWhen(cursor.getString(cursor.getColumnIndex(Columns.DATE)));
         cursor.close();
         return currentMood;
 
@@ -129,17 +152,17 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     //To check before current day
     public int isHistoryExist() {
-        int count = 0;
-        String selectCount = "SELECT COUNT * FROM" + DATA_TABLE +
-                "WHERE" + Columns.DATE +
-                " < DATE('NOW','LOCALTIME','START OF DAY')";
-        Cursor c = getReadableDatabase().rawQuery(selectCount, null);
-        if (c.getCount() > 0) {
-            c.moveToFirst();
-            count = c.getInt(0);
-        }
-        c.close();
-        return count;
+
+    int count = 0;
+        String selectCount = "SELECT COUNT * FROM" + DATA_TABLE
+                + "WHERE" + Columns.DATE + " < DATE('NOW','LOCALTIME','START OF DAY')";
+       Cursor c = getReadableDatabase().rawQuery(selectCount, null);
+       if (c.getCount() > 0) {
+           c.moveToFirst();
+           count = c.getColumnIndex(Columns.DATE);
+       }
+       c.close();
+       return count;
     }
 
 

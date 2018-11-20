@@ -10,7 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.doubl.moodtrack.R;
+
+import com.example.doubl.moodtrack.model.Mood;
 import com.example.doubl.moodtrack.model.MoodEnum;
+
 
 
 public class DialogFragment extends android.support.v4.app.DialogFragment {
@@ -37,19 +40,24 @@ public class DialogFragment extends android.support.v4.app.DialogFragment {
             public void onClick(View v) {
 
                 //affiche un icone dans l'historique
+                Mood mood = new Mood();
                 String text = editText.getText().toString();
                 Log.i("DialogClick", text);
                 databaseManager = new DatabaseManager(getContext());
-                databaseManager.insertComment(text, MoodEnum.SUPPER_HAPPY);
-                databaseManager.getWritableDatabase();
+                databaseManager.insertCommentTwo(text, mood.getMood());//mettre le mood en position
 
+                databaseManager.getWritableDatabase();
                 Log.i("DATABASE", "insertComment invokedFragment : -> " + text);
+
                 dismiss();
+
 
             }
 
-        });return v;
+        });
+        return v;
     }
-
-
 }
+
+
+

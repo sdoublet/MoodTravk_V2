@@ -1,26 +1,32 @@
 package com.example.doubl.moodtrack.model;
 
+
+import android.util.Log;
+
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
+
 
 public class Mood {
-    //private int idComment;
+
     private String comment;
     private String mood_;
     private String when;
-    private String color;
 
-    public Mood(){}
-    public Mood( String comment, String mood, String when, String color) {
-       // this.setIdComment(idComment);
-        this.setComment(comment);
-        this.setMood(mood);
-        this.setWhen(when);
-        this.color = color;
 
+    public Mood() {
     }
 
+    public Mood(String comment, String mood, String when) {
+        this.setComment(comment);
+        this.setMood(mood);
+        this.when = when;
+
+
+    }
 
 
     public String getComment() {
@@ -43,39 +49,39 @@ public class Mood {
         return when;
     }
 
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
     public void setWhen(String when) {
         this.when = when;
     }
 
-public String getDaysAgo() {
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    String[] number = {"", "", "two", "three", "four", "five", "six"};
-    long days = 0;
-    try {
-        Date newDate = simpleDateFormat.parse(when);
-        days = (new Date().getTime() - newDate.getTime()) / 86400000;
-    } catch (ParseException e) {
-        e.printStackTrace();
+    public String getDaysAgo() {
+       // history time
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.FRENCH);
+        String[] number = {"", "", "", "trois", "quatre", "cinq", "six"};
+        long days = 0;
+        try {
+
+            Date newDate = sdf.parse(getWhen());
+            days = (new Date().getTime() - newDate.getTime()) / 86400000;
+            Log.i("seb", getWhen());
+        } catch (ParseException pe) {
+            pe.printStackTrace();
+        }
+        if(days == 0) return "Aujourd'hui";
+        else if(days == 1) return "Hier";
+        else if(days == 2) return "Avant-hier";
+        else if(days == 7) return "Il y a une semaine";
+        else return "Il y a " + number[(int) days] + " jours";
     }
-    if (days == 0) return "Today";
-    else if (days == 1) return "Yesterday";
-    else if (days == 7) return "One week ago";
-    else return number[(int) days] + " days ago";
-}
 
 
-    @Override
-    public String toString() {
-        return getDaysAgo() +" " + mood_ + " "+comment;
-    }
-}
+   }
+
+
+
+
+
+
+
 
 

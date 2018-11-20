@@ -12,14 +12,14 @@
         android:layout_height="match_parent"
         android:gravity="center">
 
-        <ImageView
-            android:id="@+id/iv_smiley"
+        <View
+            android:id="@+id/view_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colorAccent"/>
 
-        <TextView
-            android:id="@+id/tv_smiley"
+        <ImageView
+            android:id="@+id/iv_smiley"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/smiley_super_happy"
