@@ -1,7 +1,9 @@
 package com.example.doubl.moodtrack.outils;
 
 
+
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,19 +13,18 @@ import android.widget.EditText;
 
 import com.example.doubl.moodtrack.R;
 
-import com.example.doubl.moodtrack.model.Mood;
+
 import com.example.doubl.moodtrack.model.MoodEnum;
+
 
 
 
 public class DialogFragment extends android.support.v4.app.DialogFragment {
 
     private static DatabaseManager databaseManager;
-    private String text;
-
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle SaveInstanceState) {
 
 
@@ -40,11 +41,12 @@ public class DialogFragment extends android.support.v4.app.DialogFragment {
             public void onClick(View v) {
 
                 //affiche un icone dans l'historique
-                Mood mood = new Mood();
+
                 String text = editText.getText().toString();
                 Log.i("DialogClick", text);
                 databaseManager = new DatabaseManager(getContext());
-                databaseManager.insertCommentTwo(text, mood.getMood());//mettre le mood en position
+                databaseManager.insertComment(text, MoodEnum.SUPPER_HAPPY);// can't resolve it
+
 
                 databaseManager.getWritableDatabase();
                 Log.i("DATABASE", "insertComment invokedFragment : -> " + text);

@@ -28,37 +28,41 @@ public class History extends AppCompatActivity {
 
 
         listView = findViewById(R.id.activity_history_list_view);
-         databaseManager = new DatabaseManager(this);
-       if (moodArrayList!=null ){// voir la bonne condition
-           historyList();//create list
-       }else {
-           Toast.makeText(this, "No history yet, back tomorrow", Toast.LENGTH_LONG).show();
-           setContentView(R.layout.activity_history_empty);
-       }
-       databaseManager.close();
-
-        //historyList();
-        listView.setAdapter(new HistoryListAdapter(this, R.layout.row_history_mood, moodArrayList));
-
-
 
 
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
 
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        databaseManager = new DatabaseManager(this);
+        if (moodArrayList!=null ){// voir la bonne condition
+            historyList();//create list
+        }else {
+            Toast.makeText(this, "No history yet, back tomorrow", Toast.LENGTH_LONG).show();
+            setContentView(R.layout.activity_history_empty);
+        }
+        databaseManager.close();
 
-    public void fillDatabase() {
+        //historyList();
+        listView.setAdapter(new HistoryListAdapter(this, R.layout.row_history_mood, moodArrayList));
+    }
 
-        databaseManager.insertComment("salut", MoodEnum.SUPPER_HAPPY);
-        databaseManager.insertComment("", MoodEnum.HAPPY);
-        databaseManager.insertComment("imotep", MoodEnum.NORMAL);
-        databaseManager.insertComment("", MoodEnum.HAPPY);
-        databaseManager.insertComment("pas content", MoodEnum.DISAPPOINTED);
-        databaseManager.insertComment("very pas content", MoodEnum.SAD);
-        databaseManager.insertComment("", MoodEnum.HAPPY);
+    @Override
+    protected void onPause() {
+        super.onPause();
+        moodArrayList.clear();
+    }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     public void historyList() {

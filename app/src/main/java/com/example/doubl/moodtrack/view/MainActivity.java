@@ -12,7 +12,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 
@@ -28,9 +27,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements SmileyAdapter.OnMoodClickedCallBack {
 
-    private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private SmileyAdapter smileyAdapter;
     private MediaPlayer mediaPlayer;
     private MediaPlayer mediaPlayer2;
     private Mood mood;
@@ -50,8 +47,7 @@ public class MainActivity extends AppCompatActivity implements SmileyAdapter.OnM
         mediaPlayer2 = MediaPlayer.create(this, R.raw.sound1);
 
 
-
-        recyclerView = findViewById(R.id.rv1);
+        RecyclerView recyclerView = findViewById(R.id.rv1);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // ArrayList Smiley and Background
@@ -62,23 +58,21 @@ public class MainActivity extends AppCompatActivity implements SmileyAdapter.OnM
         happyList.add(MoodEnum.DISAPPOINTED);
         happyList.add(MoodEnum.SAD);
 
-
-        smileyAdapter = new SmileyAdapter(happyList, null);
+        //RecyclerView setAdapter
+        SmileyAdapter smileyAdapter = new SmileyAdapter(happyList, null);
         recyclerView.setAdapter(smileyAdapter);
 
-//SnapHelper for fix item
+        //SnapHelper for fix item
         SnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(recyclerView);
-
 
 
     }
 
 
-
     // Set history btn and launch activity
     public void history(View view) {
-        Button history = findViewById(R.id.history_btn);
+
         Intent intent = new Intent(this, History.class);
         startActivity(intent);
         mediaPlayer.start();
@@ -93,6 +87,10 @@ public class MainActivity extends AppCompatActivity implements SmileyAdapter.OnM
     }
 
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
 
     // Set sounds
     @Override
@@ -105,6 +103,11 @@ public class MainActivity extends AppCompatActivity implements SmileyAdapter.OnM
     protected void onPause() {
         super.onPause();
         mediaPlayer2.pause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     @Override

@@ -30,7 +30,7 @@ public class SmileyAdapter extends RecyclerView.Adapter<SmileyAdapter.HappyViewH
     private DatabaseManager databaseManager;
     private DialogFragment dialogFragment;
     List<MoodEnum> happyList;
-
+    DialogFragment getDialogFragment;
 
 
     public class HappyViewHolder extends RecyclerView.ViewHolder {
@@ -171,6 +171,7 @@ public class SmileyAdapter extends RecyclerView.Adapter<SmileyAdapter.HappyViewH
 
     @Override
     public int getItemCount() {
+
         return happyList.size();
     }
 

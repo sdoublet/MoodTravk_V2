@@ -43,6 +43,7 @@ public class Mood {
 
     public void setMood(String mood_) {
         this.mood_ = mood_;
+
     }
 
     public String getWhen() {
@@ -53,29 +54,33 @@ public class Mood {
         this.when = when;
     }
 
-    public String getDaysAgo() {
-       // history time
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.FRENCH);
-        String[] number = {"", "", "", "trois", "quatre", "cinq", "six"};
+    public String getDaysAgo()  {
+        // history time
+        
         long days = 0;
-        try {
+        long a = Long.parseLong(when);
 
-            Date newDate = sdf.parse(getWhen());
-            days = (new Date().getTime() - newDate.getTime()) / 86400000;
-            Log.i("seb", getWhen());
-        } catch (ParseException pe) {
-            pe.printStackTrace();
-        }
-        if(days == 0) return "Aujourd'hui";
-        else if(days == 1) return "Hier";
-        else if(days == 2) return "Avant-hier";
-        else if(days == 7) return "Il y a une semaine";
-        else return "Il y a " + number[(int) days] + " jours";
+        days = (new Date().getTime()/86400000 - a/ 86400000);
+
+
+        if (days == 0) return "Today";
+        else if (days>=1 && days<2) return "Yesterday";
+        else if (days>=2 && days<3) return "two days ago";
+        else if (days>=3 && days<4) return "three days ago";
+        else if (days>=4 && days<5) return "four days ago";
+        else if (days>=5 && days<6) return "five days ago";
+        else if (days>=6 && days<7) return "six days ago";
+
+        else  return "A week ago";
+
     }
 
 
-   }
+}
+
+
+
+
 
 
 

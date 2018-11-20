@@ -7,15 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 import android.util.Log;
-
 import com.example.doubl.moodtrack.model.Mood;
 import com.example.doubl.moodtrack.model.MoodEnum;
-
-
-
 import java.util.ArrayList;
-import java.util.Calendar;
-
 import java.util.Date;
 import java.util.List;
 
@@ -29,7 +23,6 @@ public class DatabaseManager extends SQLiteOpenHelper {
         private static final String COMMENT = "COMMENT";
         private static final String MOOD = "MOOD";
         private static final String DATE = "DATE";
-
     }
 
     /**
@@ -89,26 +82,12 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     }
 
-    public void insertCommentTwo(String comment, String mood) {
-        comment = comment.replace("'", "''");
-        Mood mood1=new Mood();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(Columns.COMMENT, comment);
-        contentValues.put(Columns.MOOD, mood1.getMood());
-        contentValues.put(Columns.DATE, new Date().getTime());
-        //contentValues.put(Columns.DATE,  Calendar.getInstance().get(Calendar.YEAR)
-        //       + Calendar.getInstance().get(Calendar.MONTH)
-        //       + Calendar.getInstance().get(Calendar.DAY_OF_WEEK));
 
-        this.getWritableDatabase().insert(DATA_TABLE, null, contentValues);
-        Log.i("DATABASE", "insertComment invokedManager" + new Date().getTime());
-
-    }
     // list de mes moods enregistrés
     public List<Mood> readForAWeek() {
         List<Mood> moods = new ArrayList<>();
         String selectMood = "SELECT * " +
-                "FROM " + DATA_TABLE + " ORDER BY DATE DESC LIMIT 7 ";
+                "FROM " + DATA_TABLE + " ORDER BY DATE DESC  ";
       //  + " " +
       //          "WHERE " + Columns.DATE + " BETWEEN DATE('NOW', 'LOCALTIME', 'START OF DAY', '-7 DAY') " +
       //          "AND DATE('NOW', 'LOCALTIME', 'START OF DAY', '-1 DAY')";
